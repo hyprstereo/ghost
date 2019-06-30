@@ -1,0 +1,109 @@
+<template>
+  <div>
+    <div class="table-operations" v-if="showOptions">
+      <a-button @click="setAgeSort">Sort age</a-button>
+      <a-button @click="clearFilters">Clear filters</a-button>
+      <a-button @click="clearAll">Clear filters and sorters</a-button>
+    </div>
+    <div>
+        <h3>
+        <a-icon type="solution" /> Search and Manage Active Investigations
+        </h3>
+    </div>
+    <a-divider/>
+    <a-table :columns="columns" :dataSource="data" @change="handleChange" />
+  </div>
+</template>
+<script>
+
+const data = [
+    {
+        key: '1',
+        serial: 'xxxx-xx-xxxx',
+        case: 'case title 1',
+        status: 'Open',
+        date: '5/05/2019'
+    },
+    {
+        key: '2',
+        serial: 'xxxx-xx-xxxx',
+        case: 'case title 2',
+        status: 'Closed',
+        date: '08/05/2019'
+    },
+    {
+        key: '3',
+        serial: 'xxxx-xx-xxxx',
+        case: 'case title 3',
+        status: 'New',
+        date: '11/05/2019'
+    }
+];
+
+export default {
+  data() {
+    return {
+      data,
+      showOptions: false,
+      filteredInfo: null,
+      sortedInfo: null,
+    }
+  },
+  computed: {
+    columns() {
+      let { sortedInfo, filteredInfo } = this;
+      sortedInfo = sortedInfo || {};
+      filteredInfo = filteredInfo || {};
+      const columns = [{
+        title: 'Serial',
+        dataIndex: 'serial',
+        key: 'serial',
+      }, {
+        title: 'Case',
+        dataIndex: 'case',
+        key: 'case',
+      }, {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        filters: [
+          { text: 'New', value: 'New' },
+          { text: 'Open', value: 'Open' },
+          { text: 'Closed', value: 'Closed' },
+        ]
+      },
+      {
+          title: 'Date',
+          dataIndex: 'date',
+          key: 'date',
+      }
+      ];
+      return columns;
+    }
+  },
+  methods: {
+    handleChange (pagination, filters, sorter) {
+      console.log('Various parameters', pagination, filters, sorter);
+      this.filteredInfo = filters;
+      this.sortedInfo = sorter;
+    },
+    clearFilters () {
+      this.filteredInfo = null;
+    },
+    clearAll () {
+      this.filteredInfo = null;
+      this.sortedInfo = null;
+    }
+  }
+}
+</script>
+<style scoped>
+.table-operations {
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.table-operations > button {
+  margin-right: 8px;
+}
+</style>

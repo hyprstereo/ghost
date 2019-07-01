@@ -3,7 +3,7 @@
     <a-layout :style="{ minHeight:'100vh'}">
         <a-layout-header>
             <div class="logo">
-                
+
                 <div class="headerLogo"><a-icon type="radar-chart" style="fontSize:30px;color:#1890ff;vertical-align:middle;" />&nbsp;&nbsp;&nbsp;GHOST PROTOCOL</div>
                 <a-menu
                     theme="dark"
@@ -12,8 +12,10 @@
                     :style="{ lineHeight: '64px', float: 'right'}"
                 >
                     <a-menu-item key="1"><router-link to="/investigation">Investigations</router-link></a-menu-item>
+                    <!--
                     <a-menu-item key="2"><router-link to="/users">Users</router-link></a-menu-item>
                     <a-menu-item key="3"><router-link to="/settings">Settings</router-link></a-menu-item>
+                    -->
                 </a-menu>
             </div>
         </a-layout-header>

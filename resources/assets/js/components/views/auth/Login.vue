@@ -39,23 +39,7 @@
                 </a-input>
                 </a-form-item>
                 <a-form-item>
-                <a-checkbox
-                    v-decorator="[
-                    'remember',
-                    {
-                        valuePropName: 'checked',
-                        initialValue: true,
-                    }
-                    ]"
-                >
-                    Remember me
-                </a-checkbox>
-                <a
-                    class="login-form-forgot"
-                    href=""
-                >
-                    Forgot password
-                </a>
+
                 <a-button
                     type="primary"
                     html-type="submit"
@@ -63,9 +47,7 @@
                 >
                     Log in
                 </a-button>
-                Or <a href="">
-                    register now!
-                </a>
+
                 </a-form-item>
             </a-form>
         </div>
@@ -79,6 +61,7 @@ export default {
     },
     methods: {
         handleSubmit (e) {
+            this.$router.push('/investigation');
             console.log('submit');
         }
     }

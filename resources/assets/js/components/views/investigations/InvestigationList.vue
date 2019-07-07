@@ -13,6 +13,8 @@
     <a-divider/>
     <a-table :columns="columns" :dataSource="cases" @change="handleChange" >
       <template slot="operation" slot-scope="text, record">
+        <a :href="getLink(record.key)">Report</a>
+        <a-divider type="vertical" />
         <a-popconfirm
           title="Sure to delete?"
           @confirm="()=>onDelete(record.key)"
@@ -136,6 +138,15 @@ export default {
       let editProfile = this.casesData[key];
       console.log(editProfile);
       this.$router.push('case/' + editProfile.id.toString());
+    },
+    onDownload (key) {
+      let editProfile = this.casesData[key];
+      let url = '/api/report?id=' + editProfile.id.toString();
+    },
+    getLink (key) {
+      let editProfile = this.casesData[key];
+      let url = '/api/report?id=' + editProfile.id.toString();
+      return url;
     }
   }
 }

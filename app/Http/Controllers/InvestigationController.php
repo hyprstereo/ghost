@@ -7,9 +7,17 @@ use App\Investigation;
 use App\Profile;
 use App\Officer;
 use Carbon\Carbon;
+use PDF;
 
 class InvestigationController extends Controller
 {
+
+    public function generatePDF (Request $request) {
+        $inv = $this->loadRecord ($request);
+        $data = ['myCase' => $inv];
+        $pdf = PDF::loadView('report', $data);
+        return $pdf->download($inv->case_no . '.pdf');
+    }
 
     public function deleteCase(Request $request) {
         $inv = Investigation::where('id', '=', $request->id)->first();

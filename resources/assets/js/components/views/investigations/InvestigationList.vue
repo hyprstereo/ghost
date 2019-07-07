@@ -11,7 +11,19 @@
         </h3>
     </div>
     <a-divider/>
-    <a-table :columns="columns" :dataSource="cases" @change="handleChange" />
+    <a-table :columns="columns" :dataSource="cases" @change="handleChange" >
+      <template slot="operation" slot-scope="text, record">
+        <a-popconfirm
+          title="Sure to delete?"
+          @confirm="()=>onDelete(record.key)"
+        >
+        <a href="javascript:;">Delete</a>
+        </a-popconfirm>
+        <a-divider type="vertical" />
+        <a href="javascript:;" @click="onEdit(record.key)">Edit</a>
+
+      </template>
+    </a-table>
   </div>
 </template>
 <script>
@@ -48,6 +60,7 @@ export default {
       showOptions: false,
       filteredInfo: null,
       sortedInfo: null,
+      casesData: null,
     }
   },
   computed: {
@@ -77,12 +90,18 @@ export default {
           title: 'Date',
           dataIndex: 'date',
           key: 'date',
-      }
+      },
+    {
+      title: 'Operasi',
+      dataIndex: 'operation',
+      scopedSlots: {customRender: 'operation'}
+    }
+
       ];
       return columns;
     }
   },
-  created() {
+  mounted() {
     this.getCases();
   },
   methods: {
@@ -93,6 +112,7 @@ export default {
         .then(result=>{
           console.log(result);
           let data = result.data;
+          this.casesData = data;
           let res = [];
           for (let i = 0; i < data.length; i++) {
             let _case = data[i];
@@ -124,6 +144,15 @@ export default {
     clearAll () {
       this.filteredInfo = null;
       this.sortedInfo = null;
+    },
+    onDelete (key) {
+      console.log('delete ' + key);
+    },
+    onEdit (key) {
+      console.log('edit ' + key);
+      let editProfile = this.casesData[key];
+      console.log(editProfile);
+      this.$router.push('case/' + editProfile.id.toString());
     }
   }
 }

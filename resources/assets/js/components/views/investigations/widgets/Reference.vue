@@ -20,7 +20,7 @@
                                 {
                                     required: true, message: 'Date is required',
                                 }],
-                                initialValue: this.dateOpen
+                                initialValue: this.caseProfile.dateOpen
                             }
                         ]"
                     />
@@ -39,9 +39,9 @@
                             {
                                 rules: [
                                 {
-                                    required: false, message: 'Please Enter Case Book & Page Number',
+                                    required: true, message: 'Please Enter Case Book & Page Number',
                                 }],
-                                initialValue: this.caseBookNo
+                                initialValue: this.caseProfile.caseBookNo
                             }
                         ]"
                     />
@@ -58,9 +58,9 @@
                             {
                                 rules: [
                                 {
-                                    required: true, message: 'Please Enter Reference',
+                                    required: false, message: 'Please Enter Reference',
                                 }],
-                                initialValue: this.reference
+                                initialValue: this.caseProfile.reference
                             }
                         ]"
                     />
@@ -85,7 +85,7 @@
                                 rules: [
                                     { required: true, message: 'Please select your station' }
                                 ],
-                                initialValue: this.station
+                                initialValue: this.caseProfile.station
                             }
                         ]"
                     />
@@ -104,7 +104,7 @@
                                 {
                                     required: false, message: 'Enter Location Name',
                                 }],
-                                initialValue: this.location
+                                initialValue: this.caseProfile.location
                             }
                         ]"
                     />
@@ -129,7 +129,7 @@
                                 {
                                     required: true, message: 'Enter Officer Name',
                                 }],
-                                initialValue: this.teamLead
+                                initialValue: this.caseProfile.teamLead
                             }
                         ]"
                     >
@@ -160,11 +160,11 @@ export default {
             caseBookNo: this.caseProfile.caseBookNo || '',
             reference: this.caseProfile.reference || '',
             location: this.caseProfile.location || null,
-            station: this.caseProfile.station || '',
+            station: this.caseProfile.station || [],
             teamLead: this.caseProfile.teamLead || '',
             form: this.$form.createForm(this),
-            locationOptions: [],
-            officers: []
+            locationOptions: null,
+            officers: null
         }
     },
     beforeCreate() {

@@ -22,7 +22,7 @@
                                 {
                                     required: true, message: 'Date is required',
                                 }],
-                                initialValue: this.dateTime
+                                initialValue: this.caseProfile.crimeDetails.dateTime
                             }
                         ]"
                     />
@@ -115,7 +115,7 @@
                                 {
                                     required: true, message: 'Enter Location',
                                 }],
-                                initialValue: this.placeOfOffence
+                                initialValue: this.caseProfile.offence_location
                             }
                         ]"
                     />
@@ -123,7 +123,7 @@
                 <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Laporan Polis</a-divider>
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Nama"
+                    label="Nama Pengaduh"
                     >
                     <a-input
                         style="width:300px;"
@@ -134,7 +134,7 @@
                                 {
                                     required: false, message: 'Enter A Name',
                                 }],
-                                initialValue: this.complainName
+                                initialValue: this.caseProfile.crimeDetails.name
                             }
                         ]"
                     />
@@ -152,7 +152,7 @@
                                 {
                                     required: false, message: 'Report Number',
                                 }],
-                                initialValue: this.complainReportNo
+                                initialValue: this.caseProfile.crimeDetails.reportNo
                             }
                         ]"
                     />
@@ -171,7 +171,7 @@
                                 {
                                     required: false, message: 'Enter Station Name',
                                 }],
-                                initialValue: this.complainStation
+                                initialValue: this.caseProfile.crimeDetails.station
                             }
                         ]"
                     />
@@ -191,7 +191,7 @@
                                 {
                                     required: false, message: 'Date is required',
                                 }],
-                                initialValue: this.complainDateTime
+                                initialValue: this.caseProfile.crimeDetails.dateTime
                             }
                         ]"
                     />
@@ -199,7 +199,7 @@
 
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Attachments"
+                    label="Lampiran"
                 >
                     <a-upload
                         @change="handleChange"
@@ -309,6 +309,7 @@ export default {
                 this.caseProfile.commodity = this.form.getFieldValue('commodity');
                 this.caseProfile.offence = this.form.getFieldValue('offence');
                 this.caseProfile.offence_details = this.form.getFieldValue('offence_details');
+
                 //this.caseProfile.files = this.fileList;
                 //console.log('next');
                 //console.log(this.caseProfile.files);

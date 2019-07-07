@@ -9,6 +9,7 @@ import Login from './components/views/auth/Login';
 import Investigations from './components/views/investigations';
 import InvestigationEntry from './components/views/investigations/InvestigationEntry';
 import InvestigationList from './components/views/investigations/InvestigationList';
+import InvestigationEdit from './components/views/investigations/InvestigationEdit';
 
 /* users */
 import Users from './components/views/Users';
@@ -35,6 +36,12 @@ const router = new VueRouter({
                     name: 'login',
                     component: Login,
                 },
+
+                        {
+                            path: 'case/:id',
+                            name: 'investigation_edit',
+                            component: InvestigationEdit
+                        },
                 {
                     path: 'investigation',
                     name: 'investigation',

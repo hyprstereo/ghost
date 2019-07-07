@@ -129,7 +129,6 @@ export default {
     },
     methods: {
         onSubmit(e) {
-            console.log('sub');
             return true;
         },
         fillDefaults (caseProfile) {

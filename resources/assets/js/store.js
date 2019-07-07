@@ -9,6 +9,7 @@ export default new Vuex.Store({
     state: {
         // data required for user auth
         status: '',
+        caseProfile: null,
         token: localStorage.getItem('token') || '',
     },
     mutations: {

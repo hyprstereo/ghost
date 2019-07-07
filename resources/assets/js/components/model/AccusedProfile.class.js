@@ -19,6 +19,21 @@ class AccusedProfile {
         this.remarks = '';
     }
 
+    parseData (p) {
+        this.type = p.type;
+        this.name = p.name;
+        if (p.type == 'private') {
+            this.identity = p.identification;
+            this.nationality = p.nationality;
+            this.race = p.race;
+
+            this.age = p.age;
+            this.gender = p.gender;
+        } else {
+            this.regNumber = p.identification;
+        }
+    }
+
     getProfileTableData (key=0) {
         let dataItem = {
             key: key,

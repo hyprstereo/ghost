@@ -25,3 +25,5 @@ Route::get('/officers', 'ProfilesController@getOfficers');
 Route::post('/upload', 'InvestigationController@uploadFiles');
 
 Route::get('/records', 'InvestigationController@records');
+
+Route::post('/case', 'InvestigationController@loadRecord');

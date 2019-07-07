@@ -2,7 +2,7 @@
 <div>
     <div>
         <h3>
-            <a-icon type="select" /> Open New Investigation
+            <a-icon type="select" /> {{ this.title }}
         </h3>
     </div>
     <a-divider/>
@@ -44,6 +44,15 @@
           New Case Created
       </p>
     </a-modal>
+    <a-modal
+      title="Case Updated"
+      v-model="modalVisible2"
+      @ok="handleOk2"
+    >
+      <p>
+          Case Updated!
+      </p>
+    </a-modal>
 </div>
 </template>
 <script>
@@ -63,9 +72,12 @@ export default {
         Crime,
         Court
     },
+    props: ['editMode'],
     data() {
         return {
+            title: (this.editMode) ? 'Review Investigation' : 'Open New Investigation',
             modalVisible: false,
+            modalVisible2: false,
             formItemLayout: {
                 labelCol: { span: 6 },
                 wrapperCol: { span: 14 },
@@ -87,8 +99,35 @@ export default {
     },
     created() {
 
+        if (this.editMode == true) {
+            this.loadCaseData();
+        }
     },
     methods: {
+        loadCaseData() {
+            let self = this;
+            let id = this.$route.params.id;
+            console.log('loading ' + id);
+            let url = '/api/case';
+            axios
+                .post(url, {id: id})
+                .then(result=>{
+                    console.log('got result');
+
+                    self.caseProfile.parseData (result.data);
+                })
+                .catch (err=>{
+                    console.log('error> ' + err);
+                })
+        },
+        handleOk2() {
+            this.modalVisible2 = false;
+            //this.$router.push('/investigation');
+            let self = this;
+            setTimeout(()=> {
+                self.$router.push('/investigation');
+            }, 500);
+        },
         handleOk() {
             this.modalVisible = false;
             this.$router.push('/investigation');
@@ -115,15 +154,19 @@ export default {
             this.showProfileModal = false;
         },
         submitNewCase() {
+
             let self = this;
             let url = '/api/newcase';
-            console.log('url = ' + url);
-            console.log(this.caseProfile);
+
             axios
                 .post(url, this.caseProfile)
                 .then(result => {
                     console.log(result);
-                    self.modalVisible = true;
+                    if (self.editMode) {
+                        self.modalVisible2 = true;
+                    } else {
+                        self.modalVisible = true;
+                    }
                 })
                 .catch(err => {
                     console.log('err> ' + err);

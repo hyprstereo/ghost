@@ -22,7 +22,11 @@ class InvestigationController extends Controller
         //return $details['complainer']['reportNo'];
         //return Carbon::parse($investigation['dateOpen']);
 
-        $newInv = Investigation::create([
+         $newInv = Investigation::updateOrCreate(
+         [
+             'id' => $investigation['id']
+         ],
+         [
             'date' => Carbon::parse($investigation['dateOpen']),
             'status' => 0, // 0 = new
             'case_no' => $investigation['caseBookNo'],
@@ -31,9 +35,14 @@ class InvestigationController extends Controller
             'raid_leader_id' => $investigation['teamLead'],
             'profile_id' => implode(',', $profiles),
             'complainer_date_time' => Carbon::parse($details['complainer']['dateTime']),
-            'complainer_place_of_offence' => $details['complainer']['station'],
+            'complainer_place_of_offence' => $details['location'],
             'complainer_name' => $details['complainer']['name'],
-            'complainer_report_no' => $details['complainer']['reportNo']
+            'complainer_report_no' => $details['complainer']['reportNo'],
+            'police_station' => $details['complainer']['station'],
+            'commodity' => $investigation['commodity'],
+            'offence_details' => $investigation['offence_details'],
+            'reference' => $investigation['reference'],
+            'offence' => $investigation['offence'],
         ]);
 
 
@@ -54,6 +63,7 @@ class InvestigationController extends Controller
                     'identification' => $ident
                  ]);
             }
+
             /*$profile = App\Profile::firstOrNew([
                 'identification' => $ident
             ]);*/
@@ -65,6 +75,7 @@ class InvestigationController extends Controller
                 $profile->race = $profiles[$i]['race'];
                 $profile->age = $profiles[$i]['age'];
                 $profile->occupation = $profiles[$i]['occupation'];
+                $profile->gender = $profiles[$i]['gender'];
             } else {
                 $profile->name = $profiles[$i]['name'];
             }
@@ -80,6 +91,12 @@ class InvestigationController extends Controller
             $investigations[$i]->profiles = $investigations[$i]->getProfiles();
         }
         return $investigations;
+    }
+
+    public function loadRecord(Request $request) {
+        $investigation = Investigation::where('id', '=', $request->id)->first();
+        $investigation->profiles = $investigation->getProfiles();
+        return $investigation;
     }
 
     public function uploadFiles(Request $request) {

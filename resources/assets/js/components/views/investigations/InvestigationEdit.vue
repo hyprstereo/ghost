@@ -13,7 +13,9 @@ export default {
         InvestigationEntry
     },
     data() {
-        caseId: null
+        return {
+            caseId: null
+        }
     },
     methods: {
 

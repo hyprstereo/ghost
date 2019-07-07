@@ -4,7 +4,7 @@
         <a-layout-header>
             <div class="logo">
 
-                <div class="headerLogo"><a-icon type="radar-chart" style="fontSize:30px;color:#1890ff;vertical-align:middle;" />&nbsp;&nbsp;&nbsp;SHAFT</div>
+                <div class="headerLogo"><a-icon type="radar-chart" style="fontSize:30px;color:#1890ff;vertical-align:middle;" />&nbsp;&nbsp;&nbsp;CTAC</div>
                 <a-menu
                     theme="dark"
                     mode="horizontal"

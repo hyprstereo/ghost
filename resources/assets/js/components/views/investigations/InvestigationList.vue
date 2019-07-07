@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="table-operations" v-if="showOptions">
+    <!--<div class="table-operations" v-if="showOptions">
       <a-button @click="setAgeSort">Sort age</a-button>
       <a-button @click="clearFilters">Clear filters</a-button>
       <a-button @click="clearAll">Clear filters and sorters</a-button>
-    </div>
+    </div>-->
     <div>
         <h3>
         <a-icon type="solution" /> Rekod Kes
@@ -28,39 +28,12 @@
 </template>
 <script>
 import axios from 'axios';
-const data = [
-    {
-        key: '1',
-        serial: 'xxxx-xx-xxxx',
-        case: 'case title 1',
-        status: 'Open',
-        date: '5/05/2019'
-    },
-    {
-        key: '2',
-        serial: 'xxxx-xx-xxxx',
-        case: 'case title 2',
-        status: 'Closed',
-        date: '08/05/2019'
-    },
-    {
-        key: '3',
-        serial: 'xxxx-xx-xxxx',
-        case: 'case title 3',
-        status: 'New',
-        date: '11/05/2019'
-    }
-];
 
 export default {
+  props:['__ob__'],
   data() {
     return {
-      cases: null,
-      data,
-      showOptions: false,
-      filteredInfo: null,
-      sortedInfo: null,
-      casesData: null,
+      cases: [],
     }
   },
   computed: {
@@ -101,11 +74,8 @@ export default {
       return columns;
     }
   },
-  mounted () {
-    let self = this;
-    setTimeout(()=>{
-      self.getCases();
-    }, 500);
+  created () {
+    this.getCases();
   },
   methods: {
     getCases() {

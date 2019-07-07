@@ -11,6 +11,7 @@ class AccusedProfile {
         this.gender = '';
         this.age = 18;
         this.occupation = '';
+        this.nationality = '';
 
         // if accused is a company
         this.regNumber = '';

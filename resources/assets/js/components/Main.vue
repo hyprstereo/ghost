@@ -4,7 +4,7 @@
         <a-layout-header>
             <div class="logo">
 
-                <div class="headerLogo"><a-icon type="radar-chart" style="fontSize:30px;color:#1890ff;vertical-align:middle;" />&nbsp;&nbsp;&nbsp;GHOST PROTOCOL</div>
+                <div class="headerLogo"><a-icon type="radar-chart" style="fontSize:30px;color:#1890ff;vertical-align:middle;" />&nbsp;&nbsp;&nbsp;SHAFT</div>
                 <a-menu
                     theme="dark"
                     mode="horizontal"
@@ -22,7 +22,7 @@
         <a-layout-content class="mainContainer">
             <router-view></router-view>
         </a-layout-content>
-        <a-layout-footer>© 2019, Ghost Protocol</a-layout-footer>
+        <a-layout-footer>© 2019, SHAFT: Sabah Anti Fraud Team</a-layout-footer>
     </a-layout>
 </div>
 </template>

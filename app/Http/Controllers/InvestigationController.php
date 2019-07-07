@@ -13,11 +13,13 @@ class InvestigationController extends Controller
 
     public function newCase (Request $request) {
         $investigation = $request->all();
+
         //return $investigation['caseBookNo'];
         // set new profiles first
         $profiles = $this->processProfiles($investigation['profiles']);
         $details = $investigation['crimeDetails'];
-        //return $details['complainer']['dateTime'];
+
+        //return $details['complainer']['reportNo'];
         //return Carbon::parse($investigation['dateOpen']);
 
         $newInv = Investigation::create([
@@ -25,7 +27,7 @@ class InvestigationController extends Controller
             'status' => 0, // 0 = new
             'case_no' => $investigation['caseBookNo'],
             'location' => $investigation['location'],
-            'station' => $investigation['station'],
+            'station' => implode('/', $investigation['station']),
             'raid_leader_id' => $investigation['teamLead'],
             'profile_id' => implode(',', $profiles),
             'complainer_date_time' => Carbon::parse($details['complainer']['dateTime']),
@@ -33,6 +35,7 @@ class InvestigationController extends Controller
             'complainer_name' => $details['complainer']['name'],
             'complainer_report_no' => $details['complainer']['reportNo']
         ]);
+
 
         return $newInv;
     }
@@ -69,5 +72,18 @@ class InvestigationController extends Controller
             array_push($ret, $profile->id);
         }
         return $ret;
+    }
+
+    public function records(Request $request) {
+        $investigations = Investigation::where('status', '>', -1)->get();
+        for ($i = 0; $i < count($investigations); $i++) {
+            $investigations[$i]->profiles = $investigations[$i]->getProfiles();
+        }
+        return $investigations;
+    }
+
+    public function uploadFiles(Request $request) {
+        return 'hello there';
+        return $request->all();
     }
 }

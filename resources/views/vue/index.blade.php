@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>GHOST</title>
-    
+<title>SHAFT: Sabah Anti Fraud Team</title>
+
 </head>
 <div id="app">
     <router-view></router-view>

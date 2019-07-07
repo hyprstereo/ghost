@@ -7,15 +7,15 @@
     </div>
     <div>
         <h3>
-        <a-icon type="solution" /> Search and Manage Active Investigations
+        <a-icon type="solution" /> Rekod Kes
         </h3>
     </div>
     <a-divider/>
-    <a-table :columns="columns" :dataSource="data" @change="handleChange" />
+    <a-table :columns="columns" :dataSource="cases" @change="handleChange" />
   </div>
 </template>
 <script>
-
+import axios from 'axios';
 const data = [
     {
         key: '1',
@@ -43,6 +43,7 @@ const data = [
 export default {
   data() {
     return {
+      cases: null,
       data,
       showOptions: false,
       filteredInfo: null,
@@ -55,13 +56,13 @@ export default {
       sortedInfo = sortedInfo || {};
       filteredInfo = filteredInfo || {};
       const columns = [{
-        title: 'Serial',
+        title: 'No. Kes',
         dataIndex: 'serial',
         key: 'serial',
       }, {
-        title: 'Case',
-        dataIndex: 'case',
-        key: 'case',
+        title: 'Stesen/Lokasi',
+        dataIndex: 'location',
+        key: 'location',
       }, {
         title: 'Status',
         dataIndex: 'status',
@@ -81,7 +82,37 @@ export default {
       return columns;
     }
   },
+  created() {
+    this.getCases();
+  },
   methods: {
+    getCases() {
+      let self = this;
+      axios
+        .get('/api/records')
+        .then(result=>{
+          console.log(result);
+          let data = result.data;
+          let res = [];
+          for (let i = 0; i < data.length; i++) {
+            let _case = data[i];
+            let _status = (data[i].status == 1) ? 'Closed' : 'Open';
+            let _location = data[i].station + '/' + data[i].location;
+            res.push({
+              'key': i.toString(),
+              'serial': _case.case_no,
+              'location': _location,
+              'status': _status,
+              'date': data[i].date
+            })
+          }
+          self.cases = res;
+        })
+        .catch(err=> {
+          console.log('err> ' + err);
+        })
+
+    },
     handleChange (pagination, filters, sorter) {
       console.log('Various parameters', pagination, filters, sorter);
       this.filteredInfo = filters;

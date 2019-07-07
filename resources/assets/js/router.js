@@ -20,8 +20,8 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        { 
-            path: '/', 
+        {
+            path: '/',
             name: 'main',
             component: Main,
             children: [

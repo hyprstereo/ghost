@@ -8,7 +8,7 @@
         <a-row>
             <a-form-item
                 v-bind="formItemLayout"
-                label="Open Date"
+                label="Tarikh Buka Kertas Siasatan"
                 >
                     <a-date-picker
                         placeholder="Open Date"
@@ -30,7 +30,7 @@
             <a-col>
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Case Book/Page #"
+                    label="No. Kertas Siasatan"
                     >
                     <a-input
                         style="width:300px;"
@@ -39,9 +39,28 @@
                             {
                                 rules: [
                                 {
-                                    required: true, message: 'Please Enter Case Book & Page Number',
+                                    required: false, message: 'Please Enter Case Book & Page Number',
                                 }],
                                 initialValue: this.caseBookNo
+                            }
+                        ]"
+                    />
+                </a-form-item>
+
+                <a-form-item
+                    v-bind="formItemLayout"
+                    label="No. Buku Kes / Muka Surat"
+                    >
+                    <a-input
+                        style="width:300px;"
+                        v-decorator="[
+                            'reference',
+                            {
+                                rules: [
+                                {
+                                    required: true, message: 'Please Enter Reference',
+                                }],
+                                initialValue: this.reference
                             }
                         ]"
                     />
@@ -52,7 +71,7 @@
             <a-col>
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Location"
+                    label="Stesen"
                     has-feedback
                     >
                     <a-cascader
@@ -61,29 +80,11 @@
                         @change="onLocationChange"
                         placeholder="Please select"
                         v-decorator="[
-                        'location',
+                        'station',
                             {
                                 rules: [
-                                    { required: true, message: 'Please select your location!' }
+                                    { required: true, message: 'Please select your station' }
                                 ],
-                                initialValue: this.location
-                            }
-                        ]"
-                    />
-                </a-form-item>
-                <a-form-item
-                    v-bind="formItemLayout"
-                    label="Station"
-                    >
-                    <a-input
-                        style="width:300px;"
-                        v-decorator="[
-                            'station',
-                            {
-                                rules: [
-                                {
-                                    required: true, message: 'Enter Station Name',
-                                }],
                                 initialValue: this.station
                             }
                         ]"
@@ -92,7 +93,29 @@
 
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Raid Leader"
+                    label="Lokasi"
+                    >
+                    <a-input
+                        style="width:300px;"
+                        v-decorator="[
+                            'location',
+                            {
+                                rules: [
+                                {
+                                    required: false, message: 'Enter Location Name',
+                                }],
+                                initialValue: this.location
+                            }
+                        ]"
+                    />
+                </a-form-item>
+
+
+
+
+                <a-form-item
+                    v-bind="formItemLayout"
+                    label="Ketua Pasukan Serbuan"
                 >
                     <a-auto-complete
                         style="width: 300px"
@@ -135,6 +158,7 @@ export default {
             },
             dateOpen: this.caseProfile.dateOpen || this.$moment(),
             caseBookNo: this.caseProfile.caseBookNo || '',
+            reference: this.caseProfile.reference || '',
             location: this.caseProfile.location || null,
             station: this.caseProfile.station || '',
             teamLead: this.caseProfile.teamLead || '',
@@ -192,6 +216,7 @@ export default {
             if (pass) {
                 this.caseProfile.dateOpen = this.form.getFieldValue('dateOpen');
                 this.caseProfile.caseBookNo = this.form.getFieldValue('caseBookNo');
+                this.caseProfile.reference = this.form.getFieldValue('reference');
                 this.caseProfile.location = this.form.getFieldValue('location');
                 this.caseProfile.station = this.form.getFieldValue('station');
                 this.caseProfile.teamLead = this.form.getFieldValue('teamLead');

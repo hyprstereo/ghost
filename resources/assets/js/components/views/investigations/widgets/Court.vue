@@ -61,7 +61,7 @@ export default {
     },
     computed: {
         locationDisplay() {
-            let display = this.caseProfile.location.join(', ') + '/' + this.caseProfile.station;
+            let display = this.caseProfile.station.join(', ') + '/' + this.caseProfile.location;
             return display;
         },
         columns() {

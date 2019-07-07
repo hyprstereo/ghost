@@ -21,3 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/newcase','InvestigationController@newCase');
 
 Route::get('/officers', 'ProfilesController@getOfficers');
+
+Route::post('/upload', 'InvestigationController@uploadFiles');
+
+Route::get('/records', 'InvestigationController@records');

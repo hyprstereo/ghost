@@ -5,6 +5,8 @@ class CaseProfile {
         this.dateClose = null;
 
         this.caseBookNo = null;
+        this.reference = null;
+
         this.location = null;
         this.station = null;
 
@@ -20,6 +22,8 @@ class CaseProfile {
                 dateTime: null
             }
         }
+
+        this.files = [];
 
         //officers
         this.teamLead = null;

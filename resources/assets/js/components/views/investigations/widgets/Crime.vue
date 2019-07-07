@@ -9,12 +9,12 @@
         <a-row>
             <a-form-item
                 v-bind="formItemLayout"
-                label="Date &amp; Time"
+                label="Tarikh &amp; Masa"
                 >
-                    <a-date-picker 
+                    <a-date-picker
                         placeholder="Open Date"
                         showTime
-                        format="YYYY-MM-DD HH:mm:ss"
+                        format="YYYY-MM-DD HH:mm"
                         v-decorator="[
                             'dateOpen',
                             {
@@ -33,7 +33,7 @@
             <a-col>
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Place of Offence"
+                    label="Tempat Kesalahan"
                     >
                     <a-input
                         style="width:300px;"
@@ -49,10 +49,10 @@
                         ]"
                     />
                 </a-form-item>
-                <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Complainer</a-divider>
+                <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Laporan Polis</a-divider>
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Name"
+                    label="Nama"
                     >
                     <a-input
                         style="width:300px;"
@@ -70,7 +70,7 @@
                 </a-form-item>
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Report No"
+                    label="No Repot"
                     >
                     <a-input
                         style="width:300px;"
@@ -89,7 +89,7 @@
 
                 <a-form-item
                     v-bind="formItemLayout"
-                    label="Station"
+                    label="Balai"
                     >
                     <a-input
                         style="width:300px;"
@@ -107,23 +107,42 @@
                 </a-form-item>
                 <a-form-item
                 v-bind="formItemLayout"
-                label="Date &amp; Time"
+                label="Tarikh &amp; Masa"
                 >
-                    <a-date-picker 
+                    <a-date-picker
                         placeholder="Open Date"
                         showTime
-                        format="YYYY-MM-DD HH:mm:ss"
+                        format="YYYY-MM-DD HH:mm"
                         v-decorator="[
                             'cDateTime',
                             {
                                 rules: [
                                 {
-                                    required: trfalseue, message: 'Date is required',
+                                    required: true, message: 'Date is required',
                                 }],
                                 initialValue: this.complainDateTime
                             }
                         ]"
                     />
+                </a-form-item>
+
+                <a-form-item
+                    v-bind="formItemLayout"
+                    label="Attachments"
+                >
+                    <a-upload
+                        @change="handleChange"
+                        :remove="handleRemove"
+                        action="/api/upload"
+                        v-decorator="['upload', {
+                            valuePropName: 'fileList',
+                            getValueFromEvent: normFile,
+                        }]"
+                        >
+                        <a-button>
+                            <a-icon type="upload" /> Select File
+                        </a-button>
+                    </a-upload>
                 </a-form-item>
             </a-col>
         </a-row>
@@ -145,13 +164,39 @@ export default {
             complainName: this.caseProfile.crimeDetails.complainer.name || '',
             complainDateTime: this.caseProfile.crimeDetails.complainer.dateTime || null,
             complainReportNo: this.caseProfile.crimeDetails.complainer.reportNo || '',
-            complainStation: this.caseProfile.crimeDetails.complainer.station || ''
+            complainStation: this.caseProfile.crimeDetails.complainer.station || '',
+            fileList: this.caseProfile.files
         }
     },
     beforeCreate() {
         this.form = this.$form.createForm (this);
     },
     methods: {
+        normFile  (e) {
+            console.log('Upload event:', e);
+            this.fileList = e;
+            if (Array.isArray(e)) {
+                return e;
+            }
+            return e && e.fileList;
+        },
+        handleChange(info) {
+            console.log('change');
+            console.log(info);
+
+        },
+        handleRemove(file) {
+            console.log(file);
+            const index = this.fileList.indexOf(file);
+            const newFileList = this.fileList.slice();
+            let res = newFileList.splice(index, 1);
+            console.log(file);
+            this.fileList = newFileList;
+        },
+        beforeUpload(file) {
+            this.fileList = [...this.fileList, file]
+            return false;
+        },
         onSubmit(e) {
             let pass = true;
             this.form.validateFields((err, values) => {
@@ -169,10 +214,14 @@ export default {
                 this.caseProfile.crimeDetails.complainer.reportNo = this.form.getFieldValue('cReportNo');
                 this.caseProfile.crimeDetails.complainer.station = this.form.getFieldValue('cStation');
                 this.caseProfile.crimeDetails.complainer.dateTime = this.form.getFieldValue('cDateTime');
+                //this.caseProfile.files = this.fileList;
+                //console.log('next');
+                //console.log(this.caseProfile.files);
+
                 return true;
             } else {
                 return false;
-            } 
+            }
         },
         fillDefaults (caseProfile) {
             if (caseProfile != null) {

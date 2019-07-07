@@ -35,6 +35,15 @@
         <a-button @click="prev()" disabled v-if="currentStep < 1">Back</a-button>
         <a-button @click="next()" type="primary">Next</a-button>
     </div>
+    <a-modal
+      title="New Case Created Successfully"
+      v-model="modalVisible"
+      @ok="handleOk"
+    >
+      <p>
+          New Case Created
+      </p>
+    </a-modal>
 </div>
 </template>
 <script>
@@ -56,6 +65,7 @@ export default {
     },
     data() {
         return {
+            modalVisible: false,
             formItemLayout: {
                 labelCol: { span: 6 },
                 wrapperCol: { span: 14 },
@@ -79,6 +89,10 @@ export default {
 
     },
     methods: {
+        handleOk() {
+            this.modalVisible = false;
+            this.$router.push('/investigation');
+        },
         next() {
             let result = this.$refs[this.widgets[this.currentStep]].onSubmit();
             if (result) {
@@ -101,12 +115,15 @@ export default {
             this.showProfileModal = false;
         },
         submitNewCase() {
+            let self = this;
             let url = '/api/newcase';
             console.log('url = ' + url);
+            console.log(this.caseProfile);
             axios
                 .post(url, this.caseProfile)
                 .then(result => {
                     console.log(result);
+                    self.modalVisible = true;
                 })
                 .catch(err => {
                     console.log('err> ' + err);

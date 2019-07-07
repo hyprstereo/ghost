@@ -39,7 +39,7 @@
                 <div v-if="isPrivate()">
 
                     <a-form-item
-                        label="Identity Card / Passport"
+                        label="No. KP / Paspot"
                         :label-col="{ span: 8 }"
                         :wrapper-col="{ span: 12 }"
                     >
@@ -58,7 +58,7 @@
                     </a-form-item>
 
                     <a-form-item
-                        label="Name"
+                        label="Nama"
                         :label-col="{ span: 8 }"
                         :wrapper-col="{ span: 12 }"
                     >
@@ -74,7 +74,7 @@
                     </a-form-item>
 
                     <a-form-item
-                        label="Race"
+                        label="Bangsa"
                         :label-col="{ span: 8 }"
                         :wrapper-col="{ span: 12 }"
                     >
@@ -91,7 +91,7 @@
                     </a-form-item>
 
                     <a-form-item
-                        label="Gender"
+                        label="Jantina"
                         :label-col="{ span: 8 }"
                         :wrapper-col="{ span: 12 }"
                         >
@@ -116,7 +116,7 @@
                     </a-form-item>
 
                     <a-form-item
-                        label="Age"
+                        label="Umur"
                         :label-col="{ span: 8 }"
                         :wrapper-col="{ span: 12 }"
                     >
@@ -135,16 +135,16 @@
                     </a-form-item>
 
                     <a-form-item
-                        label="Job Description"
+                        label="Warganegara"
                         :label-col="{ span: 8 }"
                         :wrapper-col="{ span: 12 }"
                     >
                         <a-input
                             style="width: 300px"
                             v-decorator="[
-                            'occupation',
+                            'nationality',
                             {
-                                rules: [{ required: false, message: 'Please enter race' }],
+                                rules: [{ required: false, message: 'Isi Warganegara' }],
                                 initialValue: currentProfile.occupation
                             }
                             ]"
@@ -311,7 +311,7 @@ export default {
                     newProfile.race = this.form.getFieldValue('race');
                     newProfile.age = this.form.getFieldValue('age');
                     newProfile.gender = this.form.getFieldValue('gender');
-                    newProfile.occupation = this.form.getFieldValue('occupation');
+                    newProfile.nationality = this.form.getFieldValue('nationality');
                 } else {
                     newProfile.name = this.form.getFieldValue('companyName');
                     newProfile.regNumber = this.form.getFieldValue('companyReg');

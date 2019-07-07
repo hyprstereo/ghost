@@ -8,31 +8,39 @@
             layout="vertical"
         >
             <a-row :gutter="40">
-                <a-col>
-                    <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Investigation Details</a-divider>
+                <a-col :span="12">
+                    <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Butiran Kes</a-divider>
                     <p>State/Station: {{ this.locationDisplay }}</p>
                     <p>Case No/Page: {{ this.caseProfile.caseBookNo }}</p>
                     <p>
-                        Investigation Date: {{ this.$moment(this.caseProfile.dateOpen).format('DD-MM-YYYY HH:mm') }}
+                        Tarikh: {{ this.$moment(this.caseProfile.dateOpen).format('DD-MM-YYYY HH:mm') }}
                     </p>
-                    <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Profiles</a-divider>
-                    <a-table :columns="columns" :dataSource="this.getProfilesData"/>
                 </a-col>
-            </a-row>
-            <a-row :gutter="40">
                 <a-col :span="12">
-                    <a-divider orientation="right" style="font-size: 12px;color:#8e8e8e;">Raiding Team</a-divider>
+                    <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Maklumat Pasukan</a-divider>
 
                     <p>Raid Team Leader: {{this.caseProfile.teamLead}}</p>
 
 
                 </a-col>
+            </a-row>
+            <a-row>
+                <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Butiran Tertuduh</a-divider>
+                    <a-table :columns="columns" :dataSource="this.getProfilesData"/>
+            </a-row>
+            <a-row :gutter="40">
                 <a-col :span="12">
-                    <a-divider orientation="right" style="font-size: 12px;color:#8e8e8e;">Crime Scene</a-divider>
-                    <p>Place of Offence: {{ this.caseProfile.crimeDetails.location }}</p>
-                    <p>Complainant Name: {{ this.caseProfile.crimeDetails.complainer.name }}</p>
-                    <p>Report No: {{ this.caseProfile.crimeDetails.complainer.reportNo }}</p>
-                    <p>Station: {{ this.caseProfile.crimeDetails.complainer.station }}</p>
+                    <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Butiran</a-divider>
+                    <p>Kesalahan: {{ this.caseProfile.offence }}</p>
+                    <p>Komoditi: {{ this.caseProfile.commodity }}</p>
+                    <p>Perihal Kesalahan: {{ this.caseProfile.offence_details }}</p>
+                </a-col>
+                <a-col :span="12">
+                    <a-divider orientation="left" style="font-size: 12px;color:#8e8e8e;">Laporan Polis</a-divider>
+
+                    <p>Nama: {{ this.caseProfile.crimeDetails.complainer.name }}</p>
+                    <p>No. Repot: {{ this.caseProfile.crimeDetails.complainer.reportNo }}</p>
+                    <p>Balai: {{ this.caseProfile.crimeDetails.complainer.station }}</p>
                     <p>Date/Time: {{ this.$moment(this.caseProfile.crimeDetails.complainer.dateTime).format('DD-MM-YYYY HH:mm') }}</p>
                 </a-col>
             </a-row>
@@ -85,11 +93,6 @@ export default {
                     title: 'Identity / Reg No',
                     dataIndex: 'ident',
                     key: 'ident'
-                },
-                {
-                    title: 'Occupation',
-                    dataIndex: 'occupation',
-                    key: 'occupation'
                 }
             ];
 

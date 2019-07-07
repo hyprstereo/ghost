@@ -30,6 +30,77 @@
         </a-row>
 
         <a-row>
+            <a-form-item
+                v-bind="formItemLayout"
+                label="Kesalahan"
+                >
+                    <a-input
+                        style="width:300px;"
+                        v-decorator="[
+                            'offence',
+                            {
+                                rules: [
+                                {
+                                    required: true, message: 'Enter Offence',
+                                }],
+                                initialValue: this.caseProfile.offence
+                            }
+                        ]"
+                    />
+                </a-form-item>
+        </a-row>
+
+        <a-row>
+            <a-form-item
+                v-bind="formItemLayout"
+                label="Komoditi"
+                has-feedback
+                >
+                <a-auto-complete
+                        style="width: 300px"
+                        @search="handleCommSearch"
+                        placeholder="Komoditi"
+                        :filterOption="filterOption"
+                        v-decorator="[
+                            'commodity',
+                            {
+                                rules: [
+                                {
+                                    required: true, message: 'Enter Commodity Details',
+                                }],
+                                initialValue: this.caseProfile.commodity
+                            }
+                        ]"
+                    >
+                        <template slot="dataSource">
+                        <a-select-option v-for="comm in commOptions" :value="comm.name" :key="comm.name">{{comm.name}}</a-select-option>
+                        </template>
+                    </a-auto-complete>
+            </a-form-item>
+        </a-row>
+
+        <a-row>
+            <a-form-item
+                v-bind="formItemLayout"
+                label="Perihal Kesalahan"
+                >
+                    <a-input
+                        style="width:300px;"
+                        v-decorator="[
+                            'offence_details',
+                            {
+                                rules: [
+                                {
+                                    required: true, message: 'Enter Offence Details',
+                                }],
+                                initialValue: this.caseProfile.offence_details
+                            }
+                        ]"
+                    />
+                </a-form-item>
+        </a-row>
+
+        <a-row>
             <a-col>
                 <a-form-item
                     v-bind="formItemLayout"
@@ -118,7 +189,7 @@
                             {
                                 rules: [
                                 {
-                                    required: true, message: 'Date is required',
+                                    required: false, message: 'Date is required',
                                 }],
                                 initialValue: this.complainDateTime
                             }
@@ -151,6 +222,17 @@
 </div>
 </template>
 <script>
+
+const _commodities = [
+    { name: 'Minuman Keras'},
+    { name:'Rokok'},
+    { name:'Kenderaan'},
+    { name:'Dadah'},
+    { name:'Mercun'},
+    { name:'AMLA'},
+    { name:'ATIPSOM'},
+    { name:'Pelbagai'}
+];
 export default {
     props: ['caseProfile'],
     data() {
@@ -165,13 +247,23 @@ export default {
             complainDateTime: this.caseProfile.crimeDetails.complainer.dateTime || null,
             complainReportNo: this.caseProfile.crimeDetails.complainer.reportNo || '',
             complainStation: this.caseProfile.crimeDetails.complainer.station || '',
-            fileList: this.caseProfile.files
+            fileList: this.caseProfile.files,
+            commOptions: _commodities
         }
     },
     beforeCreate() {
         this.form = this.$form.createForm (this);
     },
     methods: {
+        handleCommSearch (value) {
+
+        },
+        filterOption(input, option) {
+            return option.componentOptions.children[0].text.toUpperCase().indexOf(input.toUpperCase()) >= 0
+        },
+        onCommodityChange(e) {
+            console.log('comm ' + e);
+        },
         normFile  (e) {
             console.log('Upload event:', e);
             this.fileList = e;
@@ -214,6 +306,9 @@ export default {
                 this.caseProfile.crimeDetails.complainer.reportNo = this.form.getFieldValue('cReportNo');
                 this.caseProfile.crimeDetails.complainer.station = this.form.getFieldValue('cStation');
                 this.caseProfile.crimeDetails.complainer.dateTime = this.form.getFieldValue('cDateTime');
+                this.caseProfile.commodity = this.form.getFieldValue('commodity');
+                this.caseProfile.offence = this.form.getFieldValue('offence');
+                this.caseProfile.offence_details = this.form.getFieldValue('offence_details');
                 //this.caseProfile.files = this.fileList;
                 //console.log('next');
                 //console.log(this.caseProfile.files);

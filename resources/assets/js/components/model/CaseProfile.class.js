@@ -9,6 +9,9 @@ class CaseProfile {
 
         this.location = null;
         this.station = null;
+        this.commodity = null;
+        this.offence = null;
+        this.offence_details = null;
 
         this.profiles = [];
 

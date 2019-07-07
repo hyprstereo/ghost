@@ -7,12 +7,22 @@
     color: #FFFFFF;
     background-color: #4A4A4A;
 }
+.topAlign {
+    vertical-align: top;
+}
+
+	* {
+		font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+	}
+
+@media screen{
+}
 </style>
 </head>
 
 <body>
-<h1><strong>CUSTOMS TARGETING &amp; ANTI CRIME CENTRE
-</strong></h1>
+<h3><strong>CUSTOMS TARGETING &amp; ANTI CRIME CENTRE
+</strong></h3>
 <p>&nbsp;</p>
 <table width="100%" border="0">
   <tbody>
@@ -32,7 +42,7 @@
             <td><strong>Umur</strong></td>
             <td><strong>No KP/Paspot</strong></td>
             <td><strong>Warganegara</strong></td>
-            </tr>
+          </tr>
 @foreach ($myCase->profiles as $profile)
           <tr>
           <td>{{ $profile->name }}</td>
@@ -40,7 +50,7 @@
             <td>{{ $profile->age }}</td>
             <td>{{ $profile->identification }}</td>
             <td>{{ $profile->nationality }}</td>
-            </tr>
+        </tr>
 @endforeach
         </tbody>
       </table></td>
@@ -51,7 +61,7 @@
     <tr>
       <td><table width="100%" border="0">
         <tbody>
-          <tr>
+          <tr class="topAlign">
             <td width="49%">Ketua Pasukan Serbuan: {{ $myCase->raid_leader_id }}</td>
             <td width="51%">Tempat Kesalahan: {{ $myCase->complainer_place_of_offence }}<br>
               Tarikh &amp; Masa: {{ $myCase->complainer_date_time }}<br>
@@ -71,18 +81,18 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td><strong>Kesalahan</strong></td>
+      <td><span class="topAlign"><strong>Kesalahan</strong></span></td>
     </tr>
     <tr>
-      <td>Seksyen/Akta: xxxx<br>
-        Perihal Kesalahan: {{ $myCase->offence }}</td>
+      <td><span class="topAlign">Seksyen/Akta: xxxx<br>
+      Perihal Kesalahan: {{ $myCase->offence }}</span></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
     </tr>
     <tr>
-      <td><strong>Keputusan Kes:<br>
-      </strong>-</td>
+      <td><span class="topAlign"><strong>Keputusan Kes:<br>
+      </strong>-</span></td>
     </tr>
     <tr>
       <td>&nbsp;</td>

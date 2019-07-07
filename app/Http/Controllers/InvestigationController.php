@@ -11,6 +11,12 @@ use Carbon\Carbon;
 class InvestigationController extends Controller
 {
 
+    public function deleteCase(Request $request) {
+        $inv = Investigation::where('id', '=', $request->id)->first();
+        $inv->delete();
+        return $inv;
+    }
+
     public function newCase (Request $request) {
         $investigation = $request->all();
 

@@ -27,3 +27,4 @@ Route::post('/upload', 'InvestigationController@uploadFiles');
 Route::get('/records', 'InvestigationController@records');
 
 Route::post('/case', 'InvestigationController@loadRecord');
+Route::post('/case_delete', 'InvestigationController@deleteCase');

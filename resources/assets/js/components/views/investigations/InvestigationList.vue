@@ -101,8 +101,11 @@ export default {
       return columns;
     }
   },
-  mounted() {
-    this.getCases();
+  mounted () {
+    let self = this;
+    setTimeout(()=>{
+      self.getCases();
+    }, 500);
   },
   methods: {
     getCases() {
@@ -147,6 +150,16 @@ export default {
     },
     onDelete (key) {
       console.log('delete ' + key);
+      let editProfile = this.casesData[key];
+      let self = this;
+      axios
+        .post('/api/case_delete', {id: editProfile.id})
+        .then(result=>{
+          self.getCases();
+        })
+        .catch(err=> {
+          console.log('err> ' + err);
+        })
     },
     onEdit (key) {
       console.log('edit ' + key);

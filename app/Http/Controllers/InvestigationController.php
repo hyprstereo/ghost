@@ -57,6 +57,7 @@ class InvestigationController extends Controller
             'offence_details' => $investigation['offence_details'],
             'reference' => $investigation['reference'],
             'offence' => $investigation['offence'],
+
         ]);
 
 
@@ -90,6 +91,7 @@ class InvestigationController extends Controller
                 $profile->age = $profiles[$i]['age'];
                 $profile->occupation = $profiles[$i]['occupation'];
                 $profile->gender = $profiles[$i]['gender'];
+                $profile->nationality = $profiles[$i]['nationality'];
             } else {
                 $profile->name = $profiles[$i]['name'];
             }

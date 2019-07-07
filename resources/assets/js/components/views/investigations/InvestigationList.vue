@@ -48,9 +48,9 @@ export default {
         dataIndex: 'serial',
         key: 'serial',
       }, {
-        title: 'Stesen/Lokasi',
-        dataIndex: 'location',
-        key: 'location',
+        title: 'Orang Kena Tuduh',
+        dataIndex: 'accused',
+        key: 'accused',
       }, {
         title: 'Status',
         dataIndex: 'status',
@@ -62,7 +62,7 @@ export default {
         ]
       },
       {
-          title: 'Date',
+          title: 'Tarikh',
           dataIndex: 'date',
           key: 'date',
       },
@@ -93,10 +93,11 @@ export default {
             let _case = data[i];
             let _status = (data[i].status == 1) ? 'Closed' : 'Open';
             let _location = data[i].station + '/' + data[i].location;
+            let _accused = data[i].profiles[0].name + ' (' + data[i].profiles[0].identification + ')';
             res.push({
               'key': i.toString(),
               'serial': _case.case_no,
-              'location': _location,
+              'accused': _accused,
               'status': _status,
               'date': data[i].date
             })
